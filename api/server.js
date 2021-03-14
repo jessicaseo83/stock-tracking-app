@@ -15,7 +15,11 @@ app.use(cookieSession({
 }))
 
 const usersRoute = require("./routes/users");
-app.use("/users",usersRoute(dbHelpers))
+const portfolioRoute = require("./routes/portfolio");
+app.use("/users",usersRoute(dbHelpers));
+app.use("/portfolio",portfolioRoute(dbHelpers));
+app.use("/wallet", walletRoute(dbHelpers));
+
 
 
 app.get("/", (req, res) => {
