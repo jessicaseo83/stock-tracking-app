@@ -1,6 +1,22 @@
 const express = require("express");
 const app = express();
-const port = 8000
+const port = 8000;
+const bodyParser = require("body-parser");
+const cookieSession = require("cookie-session");
+const cors = require("cors");
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieSession({
+    name: 'session',
+    secret: 'password',
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+}))
+
+const usersRoute = require("./routes/users");
+app.use("/users",usersRoute(dbHelpers))
+
 
 app.get("/", (req, res) => {
     res.send("From backend");
